@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vertical-slice-architecture", "vertical-slice-architecture\vertical-slice-architecture.csproj", "{8412B93D-81B0-49CD-A343-7F0FFA77316A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8412B93D-81B0-49CD-A343-7F0FFA77316A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8412B93D-81B0-49CD-A343-7F0FFA77316A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8412B93D-81B0-49CD-A343-7F0FFA77316A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8412B93D-81B0-49CD-A343-7F0FFA77316A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {370D3CF2-7C5A-4945-B720-6D77222CB000}
+	EndGlobalSection
+EndGlobal
