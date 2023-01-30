@@ -21,6 +21,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+    new Seed().SeedData(dataContext);
+}
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
