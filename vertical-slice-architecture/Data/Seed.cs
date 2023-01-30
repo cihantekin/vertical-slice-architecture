@@ -21,9 +21,34 @@
 
             dataContext.Brands.Add(new Domain.Brand
             {
-                Id = 2,
+                Id = 3,
                 Name = "Sony",
                 Origin = "Japanese"
+            });
+
+            //Television
+            dataContext.Televisions.Add(new Domain.Television
+            {
+                Id = 4,
+                BrandId = 1,
+                Inch = 65,
+                Model = "SAMSUNG OLED 65S95B"
+            });
+
+            dataContext.Televisions.Add(new Domain.Television
+            {
+                Id = 5,
+                BrandId = 2,
+                Inch = 88,
+                Model = "LG OLED 88Z29LA"
+            });
+
+            dataContext.Televisions.Add(new Domain.Television
+            {
+                Id = 6,
+                BrandId = 3,
+                Inch = 65,
+                Model = "SONY Bravia XR-65A80K - 4K OLED"
             });
         }
     }
