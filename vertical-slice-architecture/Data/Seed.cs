@@ -50,6 +50,8 @@
                 Inch = 65,
                 Model = "SONY Bravia XR-65A80K - 4K OLED"
             });
+
+            dataContext.SaveChanges();
         }
     }
 }
