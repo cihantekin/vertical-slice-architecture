@@ -19,9 +19,24 @@ namespace vertical_slice_architecture.Features.Television
 
         public class Handler : IRequestHandler<GetTvQuery, IEnumerable<TvResult>>
         {
-            public Task<IEnumerable<TvResult>> Handle(GetTvQuery request, CancellationToken cancellationToken)
+            private readonly ITelevisionService _televisionService;
+
+            public Handler(ITelevisionService televisionService)
             {
-                throw new NotImplementedException();
+                _televisionService = televisionService;
+            }
+
+            public async Task<IEnumerable<TvResult>> Handle(GetTvQuery request, CancellationToken cancellationToken)
+            {
+                var serviceResult = await _televisionService.GetTelevisionsForBrand(request.BrandId);
+
+                return serviceResult.Select(s => new TvResult
+                {
+                    BrandId = s.BrandId,
+                    Model = s.Model,
+                    Id = s.Id,
+                    Inch = s.Inch,
+                });
             }
         }
     }

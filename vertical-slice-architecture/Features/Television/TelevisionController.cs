@@ -4,6 +4,8 @@ using static vertical_slice_architecture.Features.Television.GetTelevisionsForBr
 
 namespace vertical_slice_architecture.Features.Television
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class TelevisionController : Controller
     {
         private readonly IMediator _mediator;
@@ -13,6 +15,7 @@ namespace vertical_slice_architecture.Features.Television
             _mediator = mediator;
         }
 
+        [HttpGet("GetTelevisionsForBrand")]
         public async Task<ActionResult<IEnumerable<TvResult>>> GetTelevisionsForBrand(int brandId)
         {
             try
@@ -28,7 +31,6 @@ namespace vertical_slice_architecture.Features.Television
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }
