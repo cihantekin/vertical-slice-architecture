@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Brand\" />
     <Folder Include="ServiceManager\" />
   </ItemGroup>
 
