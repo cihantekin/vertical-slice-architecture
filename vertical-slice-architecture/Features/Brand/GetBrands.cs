@@ -14,9 +14,23 @@ namespace vertical_slice_architecture.Features.Brand
 
         public class Handler : IRequestHandler<GetBrandQuery, IEnumerable<BrandResult>>
         {
-            public Task<IEnumerable<BrandResult>> Handle(GetBrandQuery request, CancellationToken cancellationToken)
+            private readonly IBrandService _brandService;
+
+            public Handler(IBrandService brandService)
             {
-                throw new NotImplementedException();
+                _brandService = brandService;
+            }
+
+            public async Task<IEnumerable<BrandResult>> Handle(GetBrandQuery request, CancellationToken cancellationToken)
+            {
+                var brands = await _brandService.GetAllBrands();
+
+                return brands.Select(b => new BrandResult
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    Origin = b.Origin
+                });
             }
         }
 

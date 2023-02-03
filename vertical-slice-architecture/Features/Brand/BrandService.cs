@@ -1,10 +1,21 @@
-﻿namespace vertical_slice_architecture.Features.Brand
+﻿using Microsoft.EntityFrameworkCore;
+using vertical_slice_architecture.Data;
+
+namespace vertical_slice_architecture.Features.Brand
 {
     public class BrandService : IBrandService
     {
-        public Task<IEnumerable<Domain.Brand>> GetAllBrands()
+        private readonly DataContext _dataContext;
+
+        public BrandService(DataContext dataContext)
         {
-            throw new NotImplementedException();
+            _dataContext = dataContext;
+        }
+
+        public async Task<IEnumerable<Domain.Brand>> GetAllBrands()
+        {
+            return await _dataContext.Brands.ToListAsync();
         }
     }
 }
+    
