@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using static vertical_slice_architecture.Features.Television.AddTelevision;
 using static vertical_slice_architecture.Features.Television.GetTelevisionsForBrand;
 
 namespace vertical_slice_architecture.Features.Television
@@ -31,6 +32,22 @@ namespace vertical_slice_architecture.Features.Television
             }
             catch (Exception ex)
             {
+                throw;
+            }
+        }
+
+        [HttpPost("AddTelevision")]
+        public async Task<ActionResult<TvResult>> AddTelevision(AddTelevisionCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
