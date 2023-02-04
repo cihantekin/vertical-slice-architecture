@@ -15,6 +15,7 @@ namespace vertical_slice_architecture.Features.Television
         public async Task AddTelevision(Domain.Television television)
         {
             await _dataContext.AddAsync(television);
+            await _dataContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Domain.Television>> GetTelevisionsForBrand(int brandId)
