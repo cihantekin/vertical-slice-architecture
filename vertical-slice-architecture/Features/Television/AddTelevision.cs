@@ -34,7 +34,7 @@ namespace vertical_slice_architecture.Features.Television
 
                 await _televisionService.AddTelevision(tv);
 
-                return new TvResult { Id = request.Id, Model = request.Model, BrandId = request.BrandId, Inch = request.Inch };
+                return new TvResult { Id = tv.Id, Model = request.Model, BrandId = request.BrandId, Inch = request.Inch };
             }
         }
     }
