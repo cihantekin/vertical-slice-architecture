@@ -22,5 +22,11 @@ namespace vertical_slice_architecture.Features.Television
         {
             return await _dataContext.Televisions.Where(x => x.BrandId == brandId).ToListAsync();
         }
+
+        public async Task RemoveTelevision(Domain.Television television)
+        {
+            _dataContext.Remove(television);
+            await _dataContext.SaveChangesAsync();
+        }
     }
 }
