@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using static vertical_slice_architecture.Features.Television.AddTelevision;
 using static vertical_slice_architecture.Features.Television.GetTelevisionsForBrand;
+using static vertical_slice_architecture.Features.Television.RemoveTelevision;
 
 namespace vertical_slice_architecture.Features.Television
 {
@@ -44,6 +45,20 @@ namespace vertical_slice_architecture.Features.Television
                 var result = await _mediator.Send(command);
 
                 return Ok(result);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPost("RemoveTelevision")]
+        public async Task<ActionResult> RemoveTelevision(RemoveTelevisionCommand command)
+        {
+            try
+            {
+                return NoContent();
             }
             catch (Exception)
             {
