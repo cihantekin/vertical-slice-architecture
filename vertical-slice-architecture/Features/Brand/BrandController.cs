@@ -4,7 +4,7 @@ using static vertical_slice_architecture.Features.Brand.GetBrands;
 
 namespace vertical_slice_architecture.Features.Brand
 {
-    [Route("api/{controller}")]
+    [Route("api/[controller]")]
     [ApiController]
     public class BrandController : Controller
     {

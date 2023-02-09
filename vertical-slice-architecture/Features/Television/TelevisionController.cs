@@ -58,6 +58,7 @@ namespace vertical_slice_architecture.Features.Television
         {
             try
             {
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch (Exception)
