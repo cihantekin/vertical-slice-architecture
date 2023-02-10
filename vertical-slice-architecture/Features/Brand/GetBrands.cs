@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using vertical_slice_architecture.Features.Brand.Exceptions;
 
 namespace vertical_slice_architecture.Features.Brand
 {
@@ -24,6 +25,9 @@ namespace vertical_slice_architecture.Features.Brand
             public async Task<IEnumerable<BrandResult>> Handle(GetBrandQuery request, CancellationToken cancellationToken)
             {
                 var brands = await _brandService.GetAllBrands();
+
+                if (brands is null || !brands.Any()) 
+                    throw new NoBrandExistException();
 
                 return brands.Select(b => new BrandResult
                 {
