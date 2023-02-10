@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using vertical_slice_architecture.Features.Television.Exceptions;
 
 namespace vertical_slice_architecture.Features.Television
 {
@@ -29,6 +30,9 @@ namespace vertical_slice_architecture.Features.Television
             public async Task<IEnumerable<TvResult>> Handle(GetTvQuery request, CancellationToken cancellationToken)
             {
                 var serviceResult = await _televisionService.GetTelevisionsForBrand(request.BrandId);
+
+                if (serviceResult is null || !serviceResult.Any())
+                    throw new NoTelevisionExistException(request.BrandId, "");
 
                 return serviceResult.Select(s => new TvResult
                 {

@@ -3,6 +3,6 @@
     public class NoTelevisionExistException : Exception
     {
         public NoTelevisionExistException() : base($"No Televisions was found!") { }
-        public NoTelevisionExistException(int televisionId) : base($"No Television was found with id: {televisionId}") { }
+        public NoTelevisionExistException(int brandId) : base($"No Television was found with brand id: {brandId}") { }
     }
 }
