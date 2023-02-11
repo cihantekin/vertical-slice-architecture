@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using vertical_slice_architecture.Domain.Shared;
 using vertical_slice_architecture.Features.Television.Exceptions;
 
 namespace vertical_slice_architecture.Features.Television
@@ -10,7 +11,7 @@ namespace vertical_slice_architecture.Features.Television
             public int BrandId { get; set; }
         }
 
-        public class TvResult
+        public class TvResult : Result
         {
             public int Id { get; set; }
             public string Model { get; set; }

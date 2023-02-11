@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using vertical_slice_architecture.Domain.Shared;
 using vertical_slice_architecture.Features.Brand.Exceptions;
 
 namespace vertical_slice_architecture.Features.Brand
@@ -6,7 +7,7 @@ namespace vertical_slice_architecture.Features.Brand
     public class GetBrands
     {
         public class GetBrandQuery : IRequest<IEnumerable<BrandResult>> { }
-        public class BrandResult
+        public class BrandResult : Result
         {
             public int Id { get; set; }
             public string Name { get; set; }
