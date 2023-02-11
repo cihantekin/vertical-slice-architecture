@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using vertical_slice_architecture.Behavior;
 using vertical_slice_architecture.Data;
 using vertical_slice_architecture.Features.Brand;
 using vertical_slice_architecture.Features.Television;
@@ -15,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddMediatR(typeof(Program).Assembly);
+builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
 
 builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("TvDb"));
 
