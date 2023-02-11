@@ -32,7 +32,7 @@ namespace vertical_slice_architecture.Features.Television
                 var serviceResult = await _televisionService.GetTelevisionsForBrand(request.BrandId);
 
                 if (serviceResult is null || !serviceResult.Any())
-                    throw new NoTelevisionExistException(request.BrandId, "");
+                    throw new NoTelevisionExistException(request.BrandId);
 
                 return serviceResult.Select(s => new TvResult
                 {
