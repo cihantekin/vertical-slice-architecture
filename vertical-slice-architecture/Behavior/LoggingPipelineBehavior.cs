@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using vertical_slice_architecture.Domain.Shared;
 
 namespace vertical_slice_architecture.Behavior
 {
     public class LoggingPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
-        where TResponse : class
+        where TResponse : Result<TResponse>
     {
         private readonly ILogger<LoggingPipelineBehavior<TRequest, TResponse>> _logger;
 

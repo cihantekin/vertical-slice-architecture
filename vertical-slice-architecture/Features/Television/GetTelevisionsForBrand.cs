@@ -11,7 +11,7 @@ namespace vertical_slice_architecture.Features.Television
             public int BrandId { get; set; }
         }
 
-        public class TvResult : Result
+        public class TvResult
         {
             public int Id { get; set; }
             public string Model { get; set; }

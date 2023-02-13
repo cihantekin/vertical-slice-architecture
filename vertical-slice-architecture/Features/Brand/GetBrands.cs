@@ -1,20 +1,19 @@
 ﻿using MediatR;
 using vertical_slice_architecture.Domain.Shared;
-using vertical_slice_architecture.Features.Brand.Exceptions;
 
 namespace vertical_slice_architecture.Features.Brand
 {
     public class GetBrands
     {
-        public class GetBrandQuery : IRequest<IEnumerable<BrandResult>> { }
-        public class BrandResult : Result
+        public class GetBrandQuery : IRequest<Result<IEnumerable<BrandResult>>> { }
+        public class BrandResult
         {
             public int Id { get; set; }
             public string Name { get; set; }
             public string Origin { get; set; }
         }
 
-        public class Handler : IRequestHandler<GetBrandQuery, IEnumerable<BrandResult>>
+        public class Handler : IRequestHandler<GetBrandQuery, Result<IEnumerable<BrandResult>>>
         {
             private readonly IBrandService _brandService;
 
@@ -23,19 +22,19 @@ namespace vertical_slice_architecture.Features.Brand
                 _brandService = brandService;
             }
 
-            public async Task<IEnumerable<BrandResult>> Handle(GetBrandQuery request, CancellationToken cancellationToken)
+            public async Task<Result<IEnumerable<BrandResult>>> Handle(GetBrandQuery request, CancellationToken cancellationToken)
             {
                 var brands = await _brandService.GetAllBrands();
 
-                if (brands is null || !brands.Any()) 
-                    throw new NoBrandExistException();
+                if (brands is null || !brands.Any())
+                    return new Result<IEnumerable<BrandResult>> { IsFailed = true, ErrorMessage = "No brand was found in the database!" };
 
-                return brands.Select(b => new BrandResult
+                return new Result<IEnumerable<BrandResult>>(brands.Select(b => new BrandResult
                 {
                     Id = b.Id,
                     Name = b.Name,
                     Origin = b.Origin
-                });
+                }));
             }
         }
 
