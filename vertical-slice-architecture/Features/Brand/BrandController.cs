@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using vertical_slice_architecture.Domain.Shared;
 using static vertical_slice_architecture.Features.Brand.GetBrands;
 
 namespace vertical_slice_architecture.Features.Brand
@@ -18,10 +19,10 @@ namespace vertical_slice_architecture.Features.Brand
         [HttpGet("GetAllBrands")]
         public async Task<ActionResult<IEnumerable<BrandResult>>> GetAllBrands()
         {
-            var result = await _mediator.Send(new GetBrandQuery());
+            Result<IEnumerable<BrandResult>> result = await _mediator.Send(new GetBrandQuery());
 
-            if (result == null)
-                return NotFound();
+            if (result.IsFailed)
+                return NotFound(result.ErrorMessage);
 
             return Ok(result);
         }
