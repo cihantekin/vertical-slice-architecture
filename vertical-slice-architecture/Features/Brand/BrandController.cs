@@ -24,7 +24,7 @@ namespace vertical_slice_architecture.Features.Brand
             if (result.IsFailed)
                 return NotFound(result.ErrorMessage);
 
-            return Ok(result);
+            return Ok(result.Data);
         }
     }
 }

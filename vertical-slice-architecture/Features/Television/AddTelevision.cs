@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using vertical_slice_architecture.Domain.Shared;
 using static vertical_slice_architecture.Features.Television.GetTelevisionsForBrand;
 
 namespace vertical_slice_architecture.Features.Television
 {
     public class AddTelevision
     {
-        public class AddTelevisionCommand : IRequest<TvResult>
+        public class AddTelevisionCommand : IRequest<Result<TvResult>>
         {
             public int Id { get; set; }
             public string Model { get; set; }
@@ -13,7 +14,7 @@ namespace vertical_slice_architecture.Features.Television
             public decimal Inch { get; set; }
         }
 
-        public class Handler : IRequestHandler<AddTelevisionCommand, TvResult>
+        public class Handler : IRequestHandler<AddTelevisionCommand, Result<TvResult>>
         {
             private readonly ITelevisionService _televisionService;
 
@@ -22,8 +23,7 @@ namespace vertical_slice_architecture.Features.Television
                 _televisionService = televisionService;
             }
 
-            //TODO: implement automapper
-            public async Task<TvResult> Handle(AddTelevisionCommand request, CancellationToken cancellationToken)
+            public async Task<Result<TvResult>> Handle(AddTelevisionCommand request, CancellationToken cancellationToken)
             {
                 Domain.Television tv = new()
                 {
@@ -34,7 +34,7 @@ namespace vertical_slice_architecture.Features.Television
 
                 await _televisionService.AddTelevision(tv);
 
-                return new TvResult { Id = tv.Id, Model = request.Model, BrandId = request.BrandId, Inch = request.Inch };
+                return new Result<TvResult>(new TvResult { Id = tv.Id, Model = request.Model, BrandId = request.BrandId, Inch = request.Inch });
             }
         }
     }

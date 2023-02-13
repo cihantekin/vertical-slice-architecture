@@ -5,7 +5,8 @@ namespace vertical_slice_architecture.Behavior
 {
     public class LoggingPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
-        where TResponse : Result<TResponse>
+        // how to pass result object here?
+        where TResponse : class
     {
         private readonly ILogger<LoggingPipelineBehavior<TRequest, TResponse>> _logger;
 
@@ -18,7 +19,12 @@ namespace vertical_slice_architecture.Behavior
         {
             _logger.LogInformation($"Request started {typeof(TRequest).Name}, {DateTime.UtcNow}");
 
-            var result = await next();
+            TResponse result = await next();
+
+            //if (result.IsFailed)
+            //{
+            //    _logger.LogError($"Request failure {typeof(TRequest).Name}, {DateTime.UtcNow}, {result.ErrorMessage}");
+            //}
 
             _logger.LogInformation($"Request completed {typeof(TRequest).Name}, {DateTime.UtcNow}");
 

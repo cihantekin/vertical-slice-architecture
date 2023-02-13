@@ -20,52 +20,35 @@ namespace vertical_slice_architecture.Features.Television
         [HttpGet("GetTelevisionsForBrand")]
         public async Task<ActionResult<IEnumerable<TvResult>>> GetTelevisionsForBrand(int brandId)
         {
-            try
+            var query = new GetTvQuery
             {
-                var query = new GetTvQuery
-                {
-                    BrandId = brandId
-                };
+                BrandId = brandId
+            };
 
-                var result = await _mediator.Send(query); 
-                
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            var result = await _mediator.Send(query);
+
+            if (result.IsFailed)
+                return NotFound(result.ErrorMessage);
+
+            return Ok(result.Data);
         }
 
         [HttpPost("AddTelevision")]
         public async Task<ActionResult<TvResult>> AddTelevision(AddTelevisionCommand command)
         {
-            try
-            {
-                var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-                return Ok(result);
-            }
-            catch (Exception)
-            {
+            if (result.IsFailed)
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ErrorMessage);
 
-                throw;
-            }
+            return Ok(result);
         }
 
         [HttpPost("RemoveTelevision")]
         public async Task<ActionResult> RemoveTelevision(RemoveTelevisionCommand command)
         {
-            try
-            {
-                await _mediator.Send(command);
-                return NoContent();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            await _mediator.Send(command);
+            return NoContent();
         }
     }
 }

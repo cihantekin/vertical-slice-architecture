@@ -1,12 +1,11 @@
 ﻿using MediatR;
 using vertical_slice_architecture.Domain.Shared;
-using vertical_slice_architecture.Features.Television.Exceptions;
 
 namespace vertical_slice_architecture.Features.Television
 {
     public class GetTelevisionsForBrand
     {
-        public class GetTvQuery : IRequest<IEnumerable<TvResult>>
+        public class GetTvQuery : IRequest<Result<IEnumerable<TvResult>>>
         {
             public int BrandId { get; set; }
         }
@@ -19,7 +18,7 @@ namespace vertical_slice_architecture.Features.Television
             public decimal Inch { get; set; }
         }
 
-        public class Handler : IRequestHandler<GetTvQuery, IEnumerable<TvResult>>
+        public class Handler : IRequestHandler<GetTvQuery, Result<IEnumerable<TvResult>>>
         {
             private readonly ITelevisionService _televisionService;
 
@@ -28,20 +27,20 @@ namespace vertical_slice_architecture.Features.Television
                 _televisionService = televisionService;
             }
 
-            public async Task<IEnumerable<TvResult>> Handle(GetTvQuery request, CancellationToken cancellationToken)
+            public async Task<Result<IEnumerable<TvResult>>> Handle(GetTvQuery request, CancellationToken cancellationToken)
             {
                 var serviceResult = await _televisionService.GetTelevisionsForBrand(request.BrandId);
 
                 if (serviceResult is null || !serviceResult.Any())
-                    throw new NoTelevisionExistException(request.BrandId);
+                    return new Result<IEnumerable<TvResult>> { IsFailed = true, ErrorMessage = "No tv found in db" };
 
-                return serviceResult.Select(s => new TvResult
+                return new Result<IEnumerable<TvResult>>(serviceResult.Select(s => new TvResult
                 {
                     BrandId = s.BrandId,
                     Model = s.Model,
                     Id = s.Id,
                     Inch = s.Inch,
-                });
+                }));
             }
         }
     }
