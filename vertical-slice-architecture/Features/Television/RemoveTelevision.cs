@@ -18,7 +18,6 @@ namespace vertical_slice_architecture.Features.Television
                 _televisionService = televisionService;
             }
 
-            //TODO: implement auto mapper and handle null cases
             public Task<Unit> Handle(RemoveTelevisionCommand request, CancellationToken cancellationToken)
             {
                 _televisionService.RemoveTelevision(new Domain.Television { Id = request.TelevisionId });

@@ -41,7 +41,7 @@ namespace vertical_slice_architecture.Features.Television
             if (result.IsFailed)
                 return StatusCode(StatusCodes.Status500InternalServerError, result.ErrorMessage);
 
-            return Ok(result);
+            return Ok(result.Data);
         }
 
         [HttpPost("RemoveTelevision")]
