@@ -13,7 +13,7 @@ namespace vertical_slice_architecture.Features.Television
         public class TvResult
         {
             public int Id { get; set; }
-            public string Model { get; set; }
+            public string Model { get; set; } = string.Empty;
             public int BrandId { get; set; }
             public decimal Inch { get; set; }
         }
