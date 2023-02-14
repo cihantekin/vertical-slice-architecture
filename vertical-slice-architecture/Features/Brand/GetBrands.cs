@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using vertical_slice_architecture.Domain.Shared;
 
 namespace vertical_slice_architecture.Features.Brand
@@ -16,10 +17,12 @@ namespace vertical_slice_architecture.Features.Brand
         public class Handler : IRequestHandler<GetBrandQuery, Result<IEnumerable<BrandResult>>>
         {
             private readonly IBrandService _brandService;
+            private readonly IMapper _mapper;
 
-            public Handler(IBrandService brandService)
+            public Handler(IBrandService brandService, IMapper mapper)
             {
                 _brandService = brandService;
+                _mapper = mapper;
             }
 
             public async Task<Result<IEnumerable<BrandResult>>> Handle(GetBrandQuery request, CancellationToken cancellationToken)
@@ -29,12 +32,7 @@ namespace vertical_slice_architecture.Features.Brand
                 if (brands is null || !brands.Any())
                     return new Result<IEnumerable<BrandResult>> { IsFailed = true, ErrorMessage = "No brand was found in the database!" };
 
-                return new Result<IEnumerable<BrandResult>>(brands.Select(b => new BrandResult
-                {
-                    Id = b.Id,
-                    Name = b.Name,
-                    Origin = b.Origin
-                }));
+                return new Result<IEnumerable<BrandResult>>(_mapper.Map<IEnumerable<BrandResult>>(brands));
             }
         }
 
